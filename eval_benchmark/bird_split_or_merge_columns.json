@@ -1,0 +1,2123 @@
+[
+  {
+    "train_idx": 3,
+    "db_id": "california_schools",
+    "question": "What is the unabbreviated mailing street address of the school with the highest FRPM count for K-12 students?",
+    "query": "SELECT T2.MailStreet FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode ORDER BY T1.`FRPM Count (K-12)` DESC LIMIT 1",
+    "relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"MailStreet": ["MailStreetName", "MailStreetNumber"]},
+    "new_relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreetName text, MailStreetNumber text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.MailStreetName, T2.MailStreetNumber FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode ORDER BY T1.`FRPM Count (K-12)` DESC LIMIT 1"
+  },
+  {
+    "train_idx": 26,
+    "db_id": "california_schools",
+    "question": "State the names and full communication address of high schools in Monterey which has more than 800 free or reduced price meals for ages 15-17?",
+    "query": "SELECT T1.`School Name`, T2.Street, T2.City, T2.State, T2.Zip FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.County = 'Monterey' AND T1.`Free Meal Count (Ages 5-17)` > 800 AND T1.`School Type` = 'High Schools (Public)'",
+    "relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": {"Address": ["Street", "City", "State", "Zip"]},
+    "new_relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Address text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.`School Name`, T2.Address FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.County = 'Monterey' AND T1.`Free Meal Count (Ages 5-17)` > 800 AND T1.`School Type` = 'High Schools (Public)'"
+  },
+  {
+    "train_idx": 33,
+    "db_id": "california_schools",
+    "question": "If there are any, what are the websites address of the schools with a free meal count of 1,900-2,000 to students aged 5-17? Include the name of the school.",
+    "query": "SELECT T2.Website, T1.`School Name` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`Free Meal Count (Ages 5-17)` BETWEEN 1900 AND 2000 AND T2.Website IS NOT NULL",
+    "relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Website": ["WebsiteProtocol, WebsiteDomain"]},
+    "new_relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, WebsiteProtocol text, WebsiteDomain text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.WebsiteProtocol, T2.WebsiteDomain, T1.`School Name` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`Free Meal Count (Ages 5-17)` BETWEEN 1900 AND 2000 AND T2.Website IS NOT NULL"
+  },
+  {
+    "train_idx": 35,
+    "db_id": "california_schools",
+    "question": "What is the administrator's email address of the chartered school with the fewest students enrolled in grades 1 through 12?",
+    "query": "SELECT T2.AdmEmail1 FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`Charter School (Y/N)` = 1 ORDER BY T1.`Enrollment (K-12)` ASC LIMIT 1",
+    "relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"AdmEmail1": ["AdmEmail1Local", "AdmEmail1Domain"]},
+    "new_relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1Local text, AdmEmail1Domain text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.AdmEmail1Local, T2.AdmEmail1Domain FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`Charter School (Y/N)` = 1 ORDER BY T1.`Enrollment (K-12)` ASC LIMIT 1"
+  },
+  {
+    "train_idx": 37,
+    "db_id": "california_schools",
+    "question": "What is the complete address of the school with the lowest excellence rate? Indicate the Street, City, Zip and State.",
+    "query": "SELECT T2.Street, T2.City, T2.State, T2.Zip FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY CAST(T1.NumGE1500 AS REAL) / T1.NumTstTakr ASC LIMIT 1",
+    "relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": {"Address": ["Street", "City", "State", "Zip"]},
+    "new_relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Address text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.Address FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY CAST(T1.NumGE1500 AS REAL) / T1.NumTstTakr ASC LIMIT 1"
+  },
+  {
+    "train_idx": 50,
+    "db_id": "california_schools",
+    "question": "What is the postal street address for the school with the 7th highest Math average? Indicate the school's name.",
+    "query": "SELECT T2.MailStreet, T2.School FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY T1.AvgScrMath DESC LIMIT 6, 1",
+    "relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"MailStreet": ["MailStreetName", "MailStreetNumber"]},
+    "new_relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreetName text, MailStreetNumber text, MailStrNameAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.MailStreetName, T2.MailStreetNumber, T2.School FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY T1.AvgScrMath DESC LIMIT 6, 1"
+  },
+  {
+    "train_idx": 51,
+    "db_id": "california_schools",
+    "question": "In which mailing street address can you find the school that has the lowest average score in reading? Also give the school's name.",
+    "query": "SELECT T2.MailStreet, T2.School FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T1.AvgScrRead IS NOT NULL ORDER BY T1.AvgScrRead ASC LIMIT 1",
+    "relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"MailStreet": ["MailStreetName", "MailStreetNumber"]},
+    "new_relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreetName text, MailStreetNumber text, MailStrNameAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.MailStreetName, T2.MailStreetNumber, T2.School FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T1.AvgScrRead IS NOT NULL ORDER BY T1.AvgScrRead ASC LIMIT 1"
+  },
+  {
+    "train_idx": 73,
+    "db_id": "california_schools",
+    "question": "What is the free or reduced price meal count for ages 5 to 17 in the Youth Authority School with a mailing street address of PO Box 1040?",
+    "query": "SELECT T1.`FRPM Count (Ages 5-17)` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.MailStreet = 'PO Box 1040' AND T2.SOCType = 'Youth Authority Facilities'",
+    "relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"MailStreet": ["MailStreetName", "MailStreetNumber"]},
+    "new_relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreetName text, MailStreetNumber text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.`FRPM Count (Ages 5-17)` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.MailStreetName = 'PO Box' AND T2.MailStreetNumber = '1040' AND T2.SOCType = 'Youth Authority Facilities'"
+  },
+  {
+    "train_idx": 87,
+    "db_id": "california_schools",
+    "question": "What are the valid e-mail addresses of the administrator of the school located in the San Bernardino county, City of San Bernardino City Unified that opened between 1/1/2009 to 12/31/2010 whose school types are public Intermediate/Middle Schools and Unified Schools?",
+    "query": "SELECT T2.AdmEmail1, T2.AdmEmail2 FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.County = 'San Bernardino' AND T2.City = 'San Bernardino' AND T2.DOC = 54 AND strftime('%Y', T2.OpenDate) BETWEEN '2009' AND '2010' AND T2.SOC = 62",
+    "relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": {"AdmEmail": ["AdmEmail1", "AdmEmail2"]},
+    "new_relevant_table": {
+      "frpm": {
+        "ddl": "create table frpm( CDSCode text primary key, foreign key(CDSCode) references schools(CDSCode) text, Academic Year text, County Code text, District Code integer, School Code text, County Name text, District Name text, School Name text, District Type text, School Type text, Educational Option Type text, NSLP Provision Status text, Charter School (Y/N) integer, Charter School Number text, Charter Funding Type text, IRC integer, Low Grade text, High Grade text, Enrollment (K-12) real, Free Meal Count (K-12) real, Percent (%) Eligible Free (K-12) real, FRPM Count (K-12) real, Percent (%) Eligible FRPM (K-12) real, Enrollment (Ages 5-17) real, Free Meal Count (Ages 5-17) real, Percent (%) Eligible Free (Ages 5-17) real, FRPM Count (Ages 5-17) real, Percent (%) Eligible FRPM (Ages 5-17) real, 2013-14 CALPADS Fall 1 Certification Status integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName text, AdmLName text, AdmEmail text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.AdmEmail FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.County = 'San Bernardino' AND T2.City = 'San Bernardino' AND T2.DOC = 54 AND strftime('%Y', T2.OpenDate) BETWEEN '2009' AND '2010' AND T2.SOC = 62"
+  },
+  {
+    "train_idx": 88,
+    "db_id": "california_schools",
+    "question": "What is the administrator's email address for the school with the highest number of test takers who received SAT scores of at least 1500?Provide the name of the school.",
+    "query": "SELECT T2.AdmEmail1, T2.School FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY T1.NumGE1500 DESC LIMIT 1",
+    "relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1 text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"AdmEmail1": ["AdmEmail1Local", "AdmEmail1Domain"]},
+    "new_relevant_table": {
+      "satscores": {
+        "ddl": "create table satscores( cds text primary key, foreign key(cds) references schools(CDSCode) text, rtype text, sname text, dname text, cname text, enroll12 integer, NumTstTakr integer, AvgScrRead integer, AvgScrMath integer, AvgScrWrite integer, NumGE1500 integer)"
+      },
+      "schools": {
+        "ddl": "create table schools( CDSCode text primary key, NCESDist text, NCESSchool text, StatusType text, County text, District text, School text, Street text, StreetAbr text, City text, Zip text, State text, MailStreet text, MailStrAbr text, MailCity text, MailZip text, MailState text, Phone text, Ext text, Website text, OpenDate date, ClosedDate date, Charter integer, CharterNum text, FundingType text, DOC text, DOCType text, SOC text, SOCType text, EdOpsCode text, EdOpsName text, EILCode text, EILName text, GSoffered text, GSserved text, Virtual text, Magnet integer, Latitude real, Longitude real, AdmFName1 text, AdmLName1 text, AdmEmail1Local text, AdmEmail1Domain text, AdmFName2 text, AdmLName2 text, AdmEmail2 text, AdmFName3 text, AdmLName3 text, AdmEmail3 text, LastUpdate date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.AdmEmail1Local, T2.AdmEmail1Domain, T2.School FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY T1.NumGE1500 DESC LIMIT 1"
+  },
+  {
+    "train_idx": 98,
+    "db_id": "financial",
+    "question": "Among the accounts who have approved loan date in 1997, list out the accounts that have the lowest approved amount and choose weekly issuance statement.",
+    "query": "SELECT T2.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T1.date) = '1997' AND T2.frequency = 'POPLATEK TYDNE' ORDER BY T1.amount LIMIT 1",
+    "relevant_table": {
+      "loan": {
+        "ddl": "create table loan( loan_id integer primary key, foreign key(account_id) references account(account_id) integer, date date, amount integer, duration integer, payments real, status text)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, date date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "loan": {
+        "ddl": "create table loan( loan_id integer primary key, foreign key(account_id) references account(account_id) integer, year date, month date, day date, amount integer, duration integer, payments real, status text)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, year date, month date, day date)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T1.year) = '1997' AND T2.frequency = 'POPLATEK TYDNE' ORDER BY T1.amount LIMIT 1"
+  },
+  {
+    "train_idx": 99,
+    "db_id": "financial",
+    "question": "Among the accounts who have loan validity more than 12 months, list out the accounts that have the highest approved amount and have account opening date in 1993.",
+    "query": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
+    "relevant_table": {
+      "loan": {
+        "ddl": "create table loan( loan_id integer primary key, foreign key(account_id) references account(account_id) integer, date date, amount integer, duration integer, payments real, status text)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, date date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "loan": {
+        "ddl": "create table loan( loan_id integer primary key, foreign key(account_id) references account(account_id) integer, year date, month date, day date, amount integer, duration integer, payments real, status text)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, year date, month date, day date)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.year) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1"
+  },
+  {
+    "train_idx": 101,
+    "db_id": "financial",
+    "question": "List out the accounts who have the earliest trading date in 1995 ?",
+    "query": "SELECT account_id FROM trans WHERE STRFTIME('%Y', date) = '1995' ORDER BY date ASC LIMIT 1",
+    "relevant_table": {
+      "trans": {
+        "ddl": "create table trans( trans_id integer primary key, foreign key(account_id) references account(account_id) integer, date date, type text, operation text, amount integer, balance integer, k_symbol text, bank text, account integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "trans": {
+        "ddl": "create table trans( trans_id integer primary key, foreign key(account_id) references account(account_id) integer, year date, month date, day date, type text, operation text, amount integer, balance integer, k_symbol text, bank text, account integer)"
+      }
+    },
+    "new_gold_sql": "SELECT account_id FROM trans WHERE STRFTIME('%Y', year) = '1995' ORDER BY year ASC LIMIT 1"
+  },
+  {
+    "train_idx": 102,
+    "db_id": "financial",
+    "question": "State different accounts who have account opening date before 1997 and own an amount of money greater than 3000USD",
+    "query": "SELECT DISTINCT T2.account_id FROM trans AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) < '1997' AND T1.amount > 3000",
+    "relevant_table": {
+      "trans": {
+        "ddl": "create table trans( trans_id integer primary key, foreign key(account_id) references account(account_id) integer, date date, type text, operation text, amount integer, balance integer, k_symbol text, bank text, account integer)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, date date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "trans": {
+        "ddl": "create table trans( trans_id integer primary key, foreign key(account_id) references account(account_id) integer, year date, month date, day date, type text, operation text, amount integer, balance integer, k_symbol text, bank text, account integer)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, year date, month date, day date)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T2.account_id FROM trans AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.year) < '1997' AND T1.amount > 3000"
+  },
+  {
+    "train_idx": 121,
+    "db_id": "financial",
+    "question": "List account ID and account opening date for accounts from 'Prachatice'.",
+    "query": "SELECT T1.account_id, T1.date FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A2 = 'Prachatice'",
+    "relevant_table": {
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, date date)"
+      },
+      "district": {
+        "ddl": "create table district( district_id integer primary key, A2 text, A3 text, A4 text, A5 text, A6 text, A7 text, A8 integer, A9 integer, A10 real, A11 integer, A12 real, A13 real, A14 integer, A15 integer, A16 integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, year date, month date, day date)"
+      },
+      "district": {
+        "ddl": "create table district( district_id integer primary key, A2 text, A3 text, A4 text, A5 text, A6 text, A7 text, A8 integer, A9 integer, A10 real, A11 integer, A12 real, A13 real, A14 integer, A15 integer, A16 integer)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.account_id, T1.year, T1.month, T1.day FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A2 = 'Prachatice'"
+  },
+  {
+    "train_idx": 188,
+    "db_id": "financial",
+    "question": "Among the accounts who have loan validity more than 24 months, list out the accounts that have the lowest approved amount and have account opening date before 1997.",
+    "query": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE T1.duration > 24 AND STRFTIME('%Y', T2.date) < '1997' ORDER BY T1.amount ASC LIMIT 1",
+    "relevant_table": {
+      "loan": {
+        "ddl": "create table loan( loan_id integer primary key, foreign key(account_id) references account(account_id) integer, date date, amount integer, duration integer, payments real, status text)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, date date)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "loan": {
+        "ddl": "create table loan( loan_id integer primary key, foreign key(account_id) references account(account_id) integer, year date, month date, day date, amount integer, duration integer, payments real, status text)"
+      },
+      "account": {
+        "ddl": "create table account( account_id integer primary key, foreign key(district_id) references district(district_id) integer, frequency text, year date, month date, day date)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE T1.duration > 24 AND STRFTIME('%Y', T2.year) < '1997' ORDER BY T1.amount ASC LIMIT 1"
+  },
+  {
+    "train_idx": 389,
+    "db_id": "card_games",
+    "question": "List down the name of cards with original types of Creature - Elf and the date of rulings for these cards.",
+    "query": "SELECT T1.id, T2.date FROM cards AS T1 INNER JOIN rulings AS T2 ON T1.uuid = T2.uuid WHERE T1.originalType = 'Creature - Elf'",
+    "relevant_table": {
+      "cards": {
+        "ddl": "create table cards( id integer primary key, artist text, asciiName text, availability text, borderColor text, cardKingdomFoilId text, cardKingdomId text, colorIdentity text, colorIndicator text, colors text, convertedManaCost real, duelDeck text, edhrecRank integer, faceConvertedManaCost real, faceName text, flavorName text, flavorText text, frameEffects text, frameVersion text, hand text, hasAlternativeDeckLimit integer, hasContentWarning integer, hasFoil integer, hasNonFoil integer, isAlternative integer, isFullArt integer, isOnlineOnly integer, isOversized integer, isPromo integer, isReprint integer, isReserved integer, isStarter integer, isStorySpotlight integer, isTextless integer, isTimeshifted integer, keywords text, layout text, leadershipSkills text, life text, loyalty text, manaCost text, mcmId text, mcmMetaId text, mtgArenaId text, mtgjsonV4Id text, mtgoFoilId text, mtgoId text, multiverseId text, name text, number text, originalReleaseDate text, originalText text, originalType text, otherFaceIds text, power text, printings text, promoTypes text, purchaseUrls text, rarity text, scryfallId text, scryfallIllustrationId text, scryfallOracleId text, setCode text, side text, subtypes text, supertypes text, tcgplayerProductId text, text text, toughness text, type text, types text, uuid text, variations text, watermark text)"
+      },
+      "rulings": {
+        "ddl": "create table rulings( id integer primary key, date date, text text, foreign key(uuid) references cards(uuid) text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["year", "month", "day"]},
+    "new_relevant_table": {
+      "cards": {
+        "ddl": "create table cards( id integer primary key, artist text, asciiName text, availability text, borderColor text, cardKingdomFoilId text, cardKingdomId text, colorIdentity text, colorIndicator text, colors text, convertedManaCost real, duelDeck text, edhrecRank integer, faceConvertedManaCost real, faceName text, flavorName text, flavorText text, frameEffects text, frameVersion text, hand text, hasAlternativeDeckLimit integer, hasContentWarning integer, hasFoil integer, hasNonFoil integer, isAlternative integer, isFullArt integer, isOnlineOnly integer, isOversized integer, isPromo integer, isReprint integer, isReserved integer, isStarter integer, isStorySpotlight integer, isTextless integer, isTimeshifted integer, keywords text, layout text, leadershipSkills text, life text, loyalty text, manaCost text, mcmId text, mcmMetaId text, mtgArenaId text, mtgjsonV4Id text, mtgoFoilId text, mtgoId text, multiverseId text, name text, number text, originalReleaseDate text, originalText text, originalType text, otherFaceIds text, power text, printings text, promoTypes text, purchaseUrls text, rarity text, scryfallId text, scryfallIllustrationId text, scryfallOracleId text, setCode text, side text, subtypes text, supertypes text, tcgplayerProductId text, text text, toughness text, type text, types text, uuid text, variations text, watermark text)"
+      },
+      "rulings": {
+        "ddl": "create table rulings( id integer primary key, year date, month date, day date, text text, foreign key(uuid) references cards(uuid) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.id, T2.year, T2.month, T2.day FROM cards AS T1 INNER JOIN rulings AS T2 ON T1.uuid = T2.uuid WHERE T1.originalType = 'Creature - Elf'"
+  },
+  {
+    "train_idx": 441,
+    "db_id": "card_games",
+    "question": "State the set code of the set with release date of 07/13/2007?",
+    "query": "SELECT T2.setCode FROM sets AS T1 INNER JOIN set_translations AS T2 ON T2.setCode = T1.code WHERE T1.releaseDate = '2007-07-13'",
+    "relevant_table": {
+      "sets": {
+        "ddl": "create table sets( id integer primary key, baseSetSize integer, block text, booster text, code text, isFoilOnly integer, isForeignOnly integer, isNonFoilOnly integer, isOnlineOnly integer, isPartialPreview integer, keyruneCode text, mcmId integer, mcmIdExtras integer, mcmName text, mtgoCode text, name text, parentCode text, releaseDate date, tcgplayerGroupId integer, totalSetSize integer, type text)"
+      },
+      "set_translations": {
+        "ddl": "create table set_translations( id integer primary key, language text, foreign key(setCode) references sets(code) text, translation text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"releaseDate": ["releaseYear", "releaseMonth", "releaseDay"]},
+    "new_relevant_table": {
+      "sets": {
+        "ddl": "create table sets( id integer primary key, baseSetSize integer, block text, booster text, code text, isFoilOnly integer, isForeignOnly integer, isNonFoilOnly integer, isOnlineOnly integer, isPartialPreview integer, keyruneCode text, mcmId integer, mcmIdExtras integer, mcmName text, mtgoCode text, name text, parentCode text, releaseYear date, releaseMonth date, releaseDay date, tcgplayerGroupId integer, totalSetSize integer, type text)"
+      },
+      "set_translations": {
+        "ddl": "create table set_translations( id integer primary key, language text, foreign key(setCode) references sets(code) text, translation text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.setCode FROM sets AS T1 INNER JOIN set_translations AS T2 ON T2.setCode = T1.code WHERE T1.releaseYear = '2007' AND T1.releaseMonth = '07' AND T1.releaseDay = '13'"
+  },
+  {
+    "train_idx": 495,
+    "db_id": "card_games",
+    "question": "What was the release date for the set which card \"Evacuation\" in it?",
+    "query": "SELECT T2.releaseDate FROM cards AS T1 INNER JOIN sets AS T2 ON T2.code = T1.setCode WHERE T1.name = 'Evacuation'",
+    "relevant_table": {
+      "cards": {
+        "ddl": "create table cards( id integer primary key, artist text, asciiName text, availability text, borderColor text, cardKingdomFoilId text, cardKingdomId text, colorIdentity text, colorIndicator text, colors text, convertedManaCost real, duelDeck text, edhrecRank integer, faceConvertedManaCost real, faceName text, flavorName text, flavorText text, frameEffects text, frameVersion text, hand text, hasAlternativeDeckLimit integer, hasContentWarning integer, hasFoil integer, hasNonFoil integer, isAlternative integer, isFullArt integer, isOnlineOnly integer, isOversized integer, isPromo integer, isReprint integer, isReserved integer, isStarter integer, isStorySpotlight integer, isTextless integer, isTimeshifted integer, keywords text, layout text, leadershipSkills text, life text, loyalty text, manaCost text, mcmId text, mcmMetaId text, mtgArenaId text, mtgjsonV4Id text, mtgoFoilId text, mtgoId text, multiverseId text, name text, number text, originalReleaseDate text, originalText text, originalType text, otherFaceIds text, power text, printings text, promoTypes text, purchaseUrls text, rarity text, scryfallId text, scryfallIllustrationId text, scryfallOracleId text, setCode text, side text, subtypes text, supertypes text, tcgplayerProductId text, text text, toughness text, type text, types text, uuid text, variations text, watermark text)"
+      },
+      "sets": {
+        "ddl": "create table sets( id integer primary key, baseSetSize integer, block text, booster text, code text, isFoilOnly integer, isForeignOnly integer, isNonFoilOnly integer, isOnlineOnly integer, isPartialPreview integer, keyruneCode text, mcmId integer, mcmIdExtras integer, mcmName text, mtgoCode text, name text, parentCode text, releaseDate date, tcgplayerGroupId integer, totalSetSize integer, type text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"releaseDate": ["releaseYear", "releaseMonth", "releaseDay"]},
+    "new_relevant_table": {
+      "cards": {
+        "ddl": "create table cards( id integer primary key, artist text, asciiName text, availability text, borderColor text, cardKingdomFoilId text, cardKingdomId text, colorIdentity text, colorIndicator text, colors text, convertedManaCost real, duelDeck text, edhrecRank integer, faceConvertedManaCost real, faceName text, flavorName text, flavorText text, frameEffects text, frameVersion text, hand text, hasAlternativeDeckLimit integer, hasContentWarning integer, hasFoil integer, hasNonFoil integer, isAlternative integer, isFullArt integer, isOnlineOnly integer, isOversized integer, isPromo integer, isReprint integer, isReserved integer, isStarter integer, isStorySpotlight integer, isTextless integer, isTimeshifted integer, keywords text, layout text, leadershipSkills text, life text, loyalty text, manaCost text, mcmId text, mcmMetaId text, mtgArenaId text, mtgjsonV4Id text, mtgoFoilId text, mtgoId text, multiverseId text, name text, number text, originalReleaseDate text, originalText text, originalType text, otherFaceIds text, power text, printings text, promoTypes text, purchaseUrls text, rarity text, scryfallId text, scryfallIllustrationId text, scryfallOracleId text, setCode text, side text, subtypes text, supertypes text, tcgplayerProductId text, text text, toughness text, type text, types text, uuid text, variations text, watermark text)"
+      },
+      "sets": {
+        "ddl": "create table sets( id integer primary key, baseSetSize integer, block text, booster text, code text, isFoilOnly integer, isForeignOnly integer, isNonFoilOnly integer, isOnlineOnly integer, isPartialPreview integer, keyruneCode text, mcmId integer, mcmIdExtras integer, mcmName text, mtgoCode text, name text, parentCode text, releaseYear date, releaseMonth date, releaseDay date, tcgplayerGroupId integer, totalSetSize integer, type text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.releaseYear, T2.releaseMonth, T2.releaseDay FROM cards AS T1 INNER JOIN sets AS T2 ON T2.code = T1.setCode WHERE T1.name = 'Evacuation'"
+  },
+  {
+    "train_idx": 502,
+    "db_id": "card_games",
+    "question": "What is the release date for the set \"Ola de fr\u00edo\"?",
+    "query": "SELECT T1.releaseDate FROM sets AS T1 INNER JOIN set_translations AS T2 ON T2.setCode = T1.code WHERE T2.translation = 'Ola de fr\u00edo'",
+    "relevant_table": {
+      "sets": {
+        "ddl": "create table sets( id integer primary key, baseSetSize integer, block text, booster text, code text, isFoilOnly integer, isForeignOnly integer, isNonFoilOnly integer, isOnlineOnly integer, isPartialPreview integer, keyruneCode text, mcmId integer, mcmIdExtras integer, mcmName text, mtgoCode text, name text, parentCode text, releaseDate date, tcgplayerGroupId integer, totalSetSize integer, type text)"
+      },
+      "set_translations": {
+        "ddl": "create table set_translations( id integer primary key, language text, foreign key(setCode) references sets(code) text, translation text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"releaseDate": ["releaseYear", "releaseMonth", "releaseDay"]},
+    "new_relevant_table": {
+      "sets": {
+        "ddl": "create table sets( id integer primary key, baseSetSize integer, block text, booster text, code text, isFoilOnly integer, isForeignOnly integer, isNonFoilOnly integer, isOnlineOnly integer, isPartialPreview integer, keyruneCode text, mcmId integer, mcmIdExtras integer, mcmName text, mtgoCode text, name text, parentCode text, releaseYear date, releaseMonth date, releaseDay date, tcgplayerGroupId integer, totalSetSize integer, type text)"
+      },
+      "set_translations": {
+        "ddl": "create table set_translations( id integer primary key, language text, foreign key(setCode) references sets(code) text, translation text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.releaseYear, T1.releaseMonth, T1.releaseDay FROM sets AS T1 INNER JOIN set_translations AS T2 ON T2.setCode = T1.code WHERE T2.translation = 'Ola de fr\u00edo'"
+  },
+  {
+    "train_idx": 559,
+    "db_id": "codebase_community",
+    "question": "Indicate the creation date of the maximum number of votes.",
+    "query": "SELECT CreationDate FROM votes GROUP BY CreationDate ORDER BY COUNT(Id) DESC LIMIT 1",
+    "relevant_table": {
+      "votes": {
+        "ddl": "create table votes( Id integer primary key, foreign key(PostId) references posts(Id) integer, VoteTypeId integer, CreationDate date, foreign key(UserId) references users(Id) integer, BountyAmount integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"CreationDate": ["CreationYear", "CreationMonth", "CreationDay"]},
+    "new_relevant_table": {
+      "votes": {
+        "ddl": "create table votes( Id integer primary key, foreign key(PostId) references posts(Id) integer, VoteTypeId integer, CreationYear date, CreationMonth date, CreationDay date, foreign key(UserId) references users(Id) integer, BountyAmount integer)"
+      }
+    },
+    "new_gold_sql": "SELECT CreationYear, CreationMonth, CreationDay FROM votes GROUP BY CreationYear, CreationMonth, CreationDay ORDER BY COUNT(Id) DESC LIMIT 1"
+  },
+  {
+    "train_idx": 644,
+    "db_id": "codebase_community",
+    "question": "Provide the last edit date and last edit user ID for the post \"Detecting a given face in a database of facial images\".",
+    "query": "SELECT LastEditDate, LastEditorUserId FROM posts WHERE Title = 'Detecting a given face in a database of facial images'",
+    "relevant_table": {
+      "posts": {
+        "ddl": "create table posts( Id integer primary key, PostTypeId integer, AcceptedAnswerId integer, CreaionDate datetime, Score integer, ViewCount integer, Body text, foreign key(OwnerUserId) references users(Id) integer, LasActivityDate datetime, Title text, Tags text, AnswerCount integer, CommentCount integer, FavoriteCount integer, foreign key(LastEditorUserId) references users(Id) integer, LastEditDate datetime, CommunityOwnedDate datetime, foreign key(ParentId) references posts(Id) integer, ClosedDate datetime, OwnerDisplayName text, LastEditorDisplayName text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"LastEditDate":["LastEditDay", "LastEditTime"]},
+    "new_relevant_table": {
+      "posts": {
+        "ddl": "create table posts( Id integer primary key, PostTypeId integer, AcceptedAnswerId integer, CreaionDate datetime, Score integer, ViewCount integer, Body text, foreign key(OwnerUserId) references users(Id) integer, LasActivityDate datetime, Title text, Tags text, AnswerCount integer, CommentCount integer, FavoriteCount integer, foreign key(LastEditorUserId) references users(Id) integer, LastEditDay datetime, LastEditTime datetime, CommunityOwnedDate datetime, foreign key(ParentId) references posts(Id) integer, ClosedDate datetime, OwnerDisplayName text, LastEditorDisplayName text)"
+      }
+    },
+    "new_gold_sql": "SELECT LastEditDay, LastEditTime,  LastEditorUserId FROM posts WHERE Title = 'Detecting a given face in a database of facial images'"
+  },
+  {
+    "train_idx": 649,
+    "db_id": "codebase_community",
+    "question": "Describe the post history counts and last edit date of the post title \"What is the best introductory Bayesian statistics textbook?\"",
+    "query": "SELECT T1.Id, T2.LastEditDate FROM postHistory AS T1 INNER JOIN posts AS T2 ON T1.PostId = T2.Id WHERE T2.Title = 'What is the best introductory Bayesian statistics textbook?'",
+    "relevant_table": {
+      "posthistory": {
+        "ddl": "create table posthistory( Id integer primary key, PostHistoryTypeId integer, foreign key(PostId) references posts(Id) integer, RevisionGUID text, CreationDate datetime, foreign key(UserId) references users(Id) integer, Text text, Comment text, UserDisplayName text)"
+      },
+      "posts": {
+        "ddl": "create table posts( Id integer primary key, PostTypeId integer, AcceptedAnswerId integer, CreaionDate datetime, Score integer, ViewCount integer, Body text, foreign key(OwnerUserId) references users(Id) integer, LasActivityDate datetime, Title text, Tags text, AnswerCount integer, CommentCount integer, FavoriteCount integer, foreign key(LastEditorUserId) references users(Id) integer, LastEditDate datetime, CommunityOwnedDate datetime, foreign key(ParentId) references posts(Id) integer, ClosedDate datetime, OwnerDisplayName text, LastEditorDisplayName text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"LastEditDate":["LastEditDay", "LastEditTime"]},
+    "new_relevant_table": {
+      "posthistory": {
+        "ddl": "create table posthistory( Id integer primary key, PostHistoryTypeId integer, foreign key(PostId) references posts(Id) integer, RevisionGUID text, CreationDate datetime, foreign key(UserId) references users(Id) integer, Text text, Comment text, UserDisplayName text)"
+      },
+      "posts": {
+        "ddl": "create table posts( Id integer primary key, PostTypeId integer, AcceptedAnswerId integer, CreaionDate datetime, Score integer, ViewCount integer, Body text, foreign key(OwnerUserId) references users(Id) integer, LasActivityDate datetime, Title text, Tags text, AnswerCount integer, CommentCount integer, FavoriteCount integer, foreign key(LastEditorUserId) references users(Id) integer, LastEditDay datetime, LastEditTime datetime, CommunityOwnedDate datetime, foreign key(ParentId) references posts(Id) integer, ClosedDate datetime, OwnerDisplayName text, LastEditorDisplayName text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.Id, T2.LastEditDay, T2.LastEditTime FROM postHistory AS T1 INNER JOIN posts AS T2 ON T1.PostId = T2.Id WHERE T2.Title = 'What is the best introductory Bayesian statistics textbook?'"
+  },
+  {
+    "train_idx": 650,
+    "db_id": "codebase_community",
+    "question": "Describe the last accessed date and location of the users who received the outliers badge.",
+    "query": "SELECT T1.LastAccessDate, T1.Location FROM users AS T1 INNER JOIN badges AS T2 ON T1.Id = T2.UserId WHERE T2.Name = 'outliers'",
+    "relevant_table": {
+      "users": {
+        "ddl": "create table users( Id integer primary key, Reputation integer, CreationDate datetime, DisplayName text, LastAccessDate datetime, WebsiteUrl text, Location text, AboutMe text, Views integer, UpVotes integer, DownVotes integer, AccountId integer, Age integer, ProfileImageUrl text)"
+      },
+      "badges": {
+        "ddl": "create table badges( Id integer primary key, foreign key(UserId) references users(Id) integer, Name text, Date datetime)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"LastAccessDate":["LastAccessDay", "LastAccessTime"]},
+    "new_relevant_table": {
+      "users": {
+        "ddl": "create table users( Id integer primary key, Reputation integer, CreationDate datetime, DisplayName text, LastAccessDay datetime, LastAccessTime datetime, WebsiteUrl text, Location text, AboutMe text, Views integer, UpVotes integer, DownVotes integer, AccountId integer, Age integer, ProfileImageUrl text)"
+      },
+      "badges": {
+        "ddl": "create table badges( Id integer primary key, foreign key(UserId) references users(Id) integer, Name text, Date datetime)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.LastAccessDay, T1.LastAccessTime , T1.Location FROM users AS T1 INNER JOIN badges AS T2 ON T1.Id = T2.UserId WHERE T2.Name = 'outliers'"
+  },
+  {
+    "train_idx": 670,
+    "db_id": "codebase_community",
+    "question": "What is the date when the youngest user made his or her first post?",
+    "query": "SELECT T2.CreaionDate FROM users AS T1 INNER JOIN posts AS T2 ON T1.Id = T2.OwnerUserId WHERE T1.Age IS NOT NULL ORDER BY T1.Age, T2.CreaionDate LIMIT 1",
+    "relevant_table": {
+      "users": {
+        "ddl": "create table users( Id integer primary key, Reputation integer, CreationDate datetime, DisplayName text, LastAccessDate datetime, WebsiteUrl text, Location text, AboutMe text, Views integer, UpVotes integer, DownVotes integer, AccountId integer, Age integer, ProfileImageUrl text)"
+      },
+      "posts": {
+        "ddl": "create table posts( Id integer primary key, PostTypeId integer, AcceptedAnswerId integer, CreaionDate datetime, Score integer, ViewCount integer, Body text, foreign key(OwnerUserId) references users(Id) integer, LasActivityDate datetime, Title text, Tags text, AnswerCount integer, CommentCount integer, FavoriteCount integer, foreign key(LastEditorUserId) references users(Id) integer, LastEditDate datetime, CommunityOwnedDate datetime, foreign key(ParentId) references posts(Id) integer, ClosedDate datetime, OwnerDisplayName text, LastEditorDisplayName text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"CreationDate": ["CreationYear", "CreationMonth", "CreationDay"]},
+    "new_relevant_table": {
+      "users": {
+        "ddl": "create table users( Id integer primary key, Reputation integer, CreationYear datetime, CreationMonth datetime, CreationDay datetime, DisplayName text, LastAccessDate datetime, WebsiteUrl text, Location text, AboutMe text, Views integer, UpVotes integer, DownVotes integer, AccountId integer, Age integer, ProfileImageUrl text)"
+      },
+      "posts": {
+        "ddl": "create table posts( Id integer primary key, PostTypeId integer, AcceptedAnswerId integer, CreaionDate datetime, Score integer, ViewCount integer, Body text, foreign key(OwnerUserId) references users(Id) integer, LasActivityDate datetime, Title text, Tags text, AnswerCount integer, CommentCount integer, FavoriteCount integer, foreign key(LastEditorUserId) references users(Id) integer, LastEditDate datetime, CommunityOwnedDate datetime, foreign key(ParentId) references posts(Id) integer, ClosedDate datetime, OwnerDisplayName text, LastEditorDisplayName text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.CreaionYear, T2.CreaionMonth, T2.CreaionDay FROM users AS T1 INNER JOIN posts AS T2 ON T1.Id = T2.OwnerUserId WHERE T1.Age IS NOT NULL ORDER BY T1.Age, T2.CreaionDate LIMIT 1"
+  },
+  {
+    "train_idx": 708,
+    "db_id": "codebase_community",
+    "question": "List the creation date and age of the user that commented with webiste.",
+    "query": "SELECT T2.CreationDate, T2.Age FROM comments AS T1 INNER JOIN users AS T2 ON T1.UserId = T2.Id WHERE T1.text LIKE '%http://%'",
+    "relevant_table": {
+      "comments": {
+        "ddl": "create table comments( Id integer primary key, foreign key(PostId) references posts(Id) integer, Score integer, Text text, CreationDate datetime, foreign key(UserId) references users(Id) integer, UserDisplayName text)"
+      },
+      "users": {
+        "ddl": "create table users( Id integer primary key, Reputation integer, CreationDate datetime, DisplayName text, LastAccessDate datetime, WebsiteUrl text, Location text, AboutMe text, Views integer, UpVotes integer, DownVotes integer, AccountId integer, Age integer, ProfileImageUrl text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"CreationDate": ["CreationYear", "CreationMonth", "CreationDay"]},
+    "new_relevant_table": {
+      "comments": {
+        "ddl": "create table comments( Id integer primary key, foreign key(PostId) references posts(Id) integer, Score integer, Text text, CreationDate datetime, foreign key(UserId) references users(Id) integer, UserDisplayName text)"
+      },
+      "users": {
+        "ddl": "create table users( Id integer primary key, Reputation integer, CreationYear datetime, CreationMonth datetime, CreationDay datetime, DisplayName text, LastAccessDate datetime, WebsiteUrl text, Location text, AboutMe text, Views integer, UpVotes integer, DownVotes integer, AccountId integer, Age integer, ProfileImageUrl text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.CreationYear, T2.CreationMonth, T2.CreationDay, T2.Age FROM comments AS T1 INNER JOIN users AS T2 ON T1.UserId = T2.Id WHERE T1.text LIKE '%http://%'"
+  },
+  {
+    "train_idx": 885,
+    "db_id": "formula_1",
+    "question": "State the name and date of the last round of race in year 1999.",
+    "query": "SELECT name, date FROM races WHERE year = 1999 ORDER BY round DESC LIMIT 1",
+    "relevant_table": {
+      "races": {
+        "ddl": "create table races( raceId integer primary key, foreign key(year) references seasons(year) integer, round integer, foreign key(circuitId) references circuits(circuitId) integer, name text, date date, time text, url text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["month", "day"]},
+    "new_relevant_table": {
+      "races": {
+        "ddl": "create table races( raceId integer primary key, foreign key(year) references seasons(year) integer, round integer, foreign key(circuitId) references circuits(circuitId) integer, name text, month date, day date, time text, url text)"
+      }
+    },
+    "new_gold_sql": "SELECT name, month, day FROM races WHERE year = 1999 ORDER BY round DESC LIMIT 1"
+  },
+  {
+    "train_idx": 907,
+    "db_id": "formula_1",
+    "question": "List all races in 2017 and the hosting country order by date of the event.",
+    "query": "SELECT DISTINCT T2.name, T1.country FROM circuits AS T1 INNER JOIN races AS T2 ON T2.circuitID = T1.circuitId WHERE T2.year = 2017 ORDER BY T2.date ASC",
+    "relevant_table": {
+      "circuits": {
+        "ddl": "create table circuits( circuitId integer primary key, circuitRef text, name text, location text, country text, lat real, lng real, alt integer, url text)"
+      },
+      "races": {
+        "ddl": "create table races( raceId integer primary key, foreign key(year) references seasons(year) integer, round integer, foreign key(circuitId) references circuits(circuitId) integer, name text, date date, time text, url text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["month", "day"]},
+    "new_relevant_table": {
+      "circuits": {
+        "ddl": "create table circuits( circuitId integer primary key, circuitRef text, name text, location text, country text, lat real, lng real, alt integer, url text)"
+      },
+      "races": {
+        "ddl": "create table races( raceId integer primary key, foreign key(year) references seasons(year) integer, round integer, foreign key(circuitId) references circuits(circuitId) integer, name text, month date, day date, time text, url text)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T2.name, T1.country FROM circuits AS T1 INNER JOIN races AS T2 ON T2.circuitID = T1.circuitId WHERE T2.year = 2017 ORDER BY T2.month, T2.day ASC"
+  },
+  {
+    "train_idx": 981,
+    "db_id": "formula_1",
+    "question": "On what year did the youngest driver had his first qualifying race? Also state the name, date and time of the race.",
+    "query": "SELECT T3.year, T3.name, T3.date, T3.time FROM qualifying AS T1 INNER JOIN drivers AS T2 on T1.driverId = T2.driverId INNER JOIN races AS T3 on T1.raceId = T3.raceId WHERE T1.driverId = ( SELECT driverId FROM drivers ORDER BY dob DESC LIMIT 1 ) ORDER BY T3.date ASC LIMIT 1",
+    "relevant_table": {
+      "qualifying": {
+        "ddl": "create table qualifying( qualifyId integer primary key, foreign key(raceId) references races(raceId) integer, foreign key(driverId) references drivers(driverId) integer, foreign key(constructorId) references constructors(constructorId) integer, number integer, position integer, q1 text, q2 text, q3 text)"
+      },
+      "drivers": {
+        "ddl": "create table drivers( driverId integer primary key, driverRef text, number integer, code text, forename text, surname text, dob date, nationality text, url text)"
+      },
+      "races": {
+        "ddl": "create table races( raceId integer primary key, foreign key(year) references seasons(year) integer, round integer, foreign key(circuitId) references circuits(circuitId) integer, name text, date date, time text, url text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date": ["month", "day"]},
+    "new_relevant_table": {
+      "qualifying": {
+        "ddl": "create table qualifying( qualifyId integer primary key, foreign key(raceId) references races(raceId) integer, foreign key(driverId) references drivers(driverId) integer, foreign key(constructorId) references constructors(constructorId) integer, number integer, position integer, q1 text, q2 text, q3 text)"
+      },
+      "drivers": {
+        "ddl": "create table drivers( driverId integer primary key, driverRef text, number integer, code text, forename text, surname text, dob date, nationality text, url text)"
+      },
+      "races": {
+        "ddl": "create table races( raceId integer primary key, foreign key(year) references seasons(year) integer, round integer, foreign key(circuitId) references circuits(circuitId) integer, name text, month date, day date, time text, url text)"
+      }
+    },
+    "new_gold_sql": "SELECT T3.year, T3.name, T3.month, T3.day, T3.time FROM qualifying AS T1 INNER JOIN drivers AS T2 on T1.driverId = T2.driverId INNER JOIN races AS T3 on T1.raceId = T3.raceId WHERE T1.driverId = ( SELECT driverId FROM drivers ORDER BY dob DESC LIMIT 1 ) ORDER BY T3.month, T3.day ASC LIMIT 1"
+  },
+  {
+    "train_idx": 991,
+    "db_id": "formula_1",
+    "question": "What is the full name and date of birth of Austrian drivers born between 1981 and 1991?",
+    "query": "SELECT forename, surname, dob FROM drivers WHERE nationality = 'Austrian' AND STRFTIME('%Y', dob) BETWEEN '1981' AND '1991'",
+    "relevant_table": {
+      "drivers": {
+        "ddl": "create table drivers( driverId integer primary key, driverRef text, number integer, code text, forename text, surname text, dob date, nationality text, url text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"dob": ["dobYear", "dobMonth", "dobDay"]},
+    "new_relevant_table": {
+      "drivers": {
+        "ddl": "create table drivers( driverId integer primary key, driverRef text, number integer, code text, forename text, surname text, dobYear date, dobMonth date, dobDay date, nationality text, url text)"
+      }
+    },
+    "new_gold_sql": "SELECT forename, surname, dob FROM drivers WHERE nationality = 'Austrian' AND STRFTIME('%Y', dobYear) BETWEEN '1981' AND '1991'"
+  },
+  {
+    "train_idx": 992,
+    "db_id": "formula_1",
+    "question": "Find the full name, Wiki Pedia page link, and date of birth of German drivers born between 1971 and 1985. List it in descending order of date of birth.",
+    "query": "SELECT forename, surname, url, dob FROM drivers WHERE nationality = 'German' AND STRFTIME('%Y', dob) BETWEEN '1971' AND '1985' ORDER BY dob DESC",
+    "relevant_table": {
+      "drivers": {
+        "ddl": "create table drivers( driverId integer primary key, driverRef text, number integer, code text, forename text, surname text, dob date, nationality text, url text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"dob": ["dobYear", "dobMonth", "dobDay"]},
+    "new_relevant_table": {
+      "drivers": {
+        "ddl": "create table drivers( driverId integer primary key, driverRef text, number integer, code text, forename text, surname text, dobYear date, dobMonth date, dobDay date, nationality text, url text)"
+      }
+    },
+    "new_gold_sql": "SELECT forename, surname, url, dobYear, dobMonth, dobDay FROM drivers WHERE nationality = 'German' AND STRFTIME('%Y', dob) BETWEEN '1971' AND '1985' ORDER BY dobYear, dobMonth, dobDay DESC"
+  },
+  {
+    "train_idx": 1153,
+    "db_id": "thrombosis_prediction",
+    "question": "What is the disease patient '30609' diagnosed with. List all the date of laboratory tests done for this patient.",
+    "query": "SELECT T1.Diagnosis, T2.Date FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.ID = 30609",
+    "relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Date":["Year", "Month", "Day"]},
+    "new_relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Year date, Month date, Day date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.Diagnosis, T2.Year, T2.Month, T2.Day FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.ID = 30609"
+  },
+  {
+    "train_idx": 1207,
+    "db_id": "thrombosis_prediction",
+    "question": "List all patients with their sex and date of birthday, whose AST glutamic oxaloacetic transaminase (GOT) index is within normal range for loboratory examination in 1994.",
+    "query": "SELECT DISTINCT T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GOT < 60 AND STRFTIME('%Y', T2.Date) = '1994'",
+    "relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Date":["Year", "Month", "Day"]},
+    "new_relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Year date, Month date, Day date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GOT < 60 AND STRFTIME('%Y', T2.Year) = '1994'"
+  },
+  {
+    "train_idx": 1209,
+    "db_id": "thrombosis_prediction",
+    "question": "Please provide the diagnosis of patients with ALT glutamic pylvic transaminase beyond the normal range by ascending order of their date of birth.",
+    "query": "SELECT DISTINCT T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GPT > 60 ORDER BY T1.Birthday ASC",
+    "relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Birthday": ["BirthdayYear", "BirthdayMonth", "BirthdayDay"]},
+    "new_relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, BirthdayYear date, BirthdayMonth date, BirthdayDay date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GPT > 60 ORDER BY T1.BirthdayYear, T1.BirthdayMonth, T1.BirthdayDay ASC"
+  },
+  {
+    "train_idx": 1214,
+    "db_id": "thrombosis_prediction",
+    "question": "List ID, sex and date of birth of patient whose total protein (TP) below the lower range of the normal index.",
+    "query": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TP < 6.0",
+    "relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Birthday": ["BirthdayYear", "BirthdayMonth", "BirthdayDay"]},
+    "new_relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, BirthdayYear date, BirthdayMonth date, BirthdayDay date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.BirthdayYear, T1.BirthdayMonth, T1.BirthdayDay, FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TP < 6.0"
+  },
+  {
+    "train_idx": 1266,
+    "db_id": "thrombosis_prediction",
+    "question": "Which is the youngest patient with an abnormal anti-ribonuclear protein level? Please list his or her date of birth.",
+    "query": "SELECT T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RNP != '-' OR '+-' ORDER BY T1.Birthday DESC LIMIT 1",
+    "relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, Birthday date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Birthday": ["BirthdayYear", "BirthdayMonth", "BirthdayDay"]},
+    "new_relevant_table": {
+      "patient": {
+        "ddl": "create table patient( ID integer primary key, SEX text, BirthdayYear date, BirthdayMonth date, BirthdayDay date, Description date, First Date date, Admission text, Diagnosis text)"
+      },
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.BirthdayYear, T1.BirthdayMonth, T1.BirthdayDay FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RNP != '-' OR '+-' ORDER BY T1.BirthdayYear, T1.BirthdayMonth, T1.BirthdayDay DESC LIMIT 1"
+  },
+  {
+    "train_idx": 1290,
+    "db_id": "thrombosis_prediction",
+    "question": "What is the examination date of the patient whose albumin is the highest in the normal range?",
+    "query": "SELECT Date FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1",
+    "relevant_table": {
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Date date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Date":["Year", "Month", "Day"]},
+    "new_relevant_table": {
+      "laboratory": {
+        "ddl": "create table laboratory( foreign key(ID) references Patient(ID) integer, Year date, Month date, Day date, GOT integer, GPT integer, LDH integer, ALP integer, TP real, ALB real, UA real, UN integer, CRE real, T-BIL real, T-CHO integer, TG integer, CPK integer, GLU integer, WBC real, RBC real, HGB real, HCT real, PLT integer, PT real, APTT integer, FG real, PIC integer, TAT integer, TAT2 integer, U-PRO text, IGG integer, IGA integer, IGM integer, CRP text, RA text, RF text, C3 integer, C4 integer, RNP text, SM text, SC170 text, SSA text, SSB text, CENTROMEA text, DNA text, DNA-II integer)"
+      }
+    },
+    "new_gold_sql": "SELECT Year, Month, Day FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1"
+  },
+  {
+    "train_idx": 1357,
+    "db_id": "student_club",
+    "question": "State the date Connor Hilton paid his/her dues.",
+    "query": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Connor' AND T1.last_name = 'Hilton' AND T2.source = 'Dues'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"date_received": ["year_received", "month_received", "day_received"]},
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, year_received text, month_received text, day_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.year_received, T2.month_received, T2.day_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Connor' AND T1.last_name = 'Hilton' AND T2.source = 'Dues'"
+  },
+  {
+    "train_idx": 1393,
+    "db_id": "student_club",
+    "question": "Provide the full name and email address of the Student_Club's Secretary.",
+    "query": "SELECT first_name, last_name, email FROM member WHERE position = 'Secretary'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": {"full_name": ["first_name", "last_name"]},
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT full_name, email FROM member WHERE position = 'Secretary'"
+  },
+  {
+    "train_idx": 1448,
+    "db_id": "student_club",
+    "question": "Find the name and date of events with expenses for pizza that were more than fifty dollars but less than a hundred dollars.",
+    "query": "SELECT T1.event_name, T1.event_date FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T3.expense_description = 'Pizza' AND T3.cost > 50 AND T3.cost < 100",
+    "relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"event_date": ["event_year", "event_month", "event_day"]},
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_year text, event_month text, event_date text, type text, notes text, location text, status text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.event_name, T1.event_year, T1.event_month, T1.event_day FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T3.expense_description = 'Pizza' AND T3.cost > 50 AND T3.cost < 100"
+  },
+  {
+    "train_idx": 1464,
+    "db_id": "student_club",
+    "question": "Write the full names of students who received funds on the date of 9/9/2019 and include the amount received.",
+    "query": "SELECT DISTINCT T3.first_name, T3.last_name, T4.amount FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T3.member_id = T2.link_to_member INNER JOIN income AS T4 ON T4.link_to_member = T3.member_id WHERE T4.date_received = '2019-09-09'",
+    "relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": {"full_name": ["first_name", "last_name"]},
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T3.full_name, T4.amount FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T3.member_id = T2.link_to_member INNER JOIN income AS T4 ON T4.link_to_member = T3.member_id WHERE T4.date_received = '2019-09-09'"
+  },
+  {
+    "train_idx": 1520,
+    "db_id": "debit_card_specializing",
+    "question": "For the customer who paid 124.05 in 2012/8/24, how much did he/she spend during the January of 2012? And what is the date and expenses exactly?",
+    "query": "SELECT T1.CustomerID, T2.Date, T2.Consumption FROM transactions_1k AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Date = '2012-08-24' AND T1.Price = 124.05 AND T2.Date = '201201'",
+    "relevant_table": {
+      "transactions_1k": {
+        "ddl": "create table transactions_1k( TransactionID integer primary key, Date date, Time text, CustomerID integer, CardID integer, GasStationID integer, ProductID integer, Amount integer, Price real)"
+      },
+      "yearmonth": {
+        "ddl": "create table yearmonth( foreign key(CustomerID) references customers(CustomerID) integer, Date text, Consumption real)"
+      }
+    },
+    "split_or_merge": "split",
+    "column_changes": {"Date": ["Year", "Month", "Day"]},
+    "new_relevant_table": {
+      "transactions_1k": {
+        "ddl": "create table transactions_1k( TransactionID integer primary key, Year date, Month date, Day date, Time text, CustomerID integer, CardID integer, GasStationID integer, ProductID integer, Amount integer, Price real)"
+      },
+      "yearmonth": {
+        "ddl": "create table yearmonth( foreign key(CustomerID) references customers(CustomerID) integer, Year text, Month text, Day text, Consumption real)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.CustomerID, T2.Year, T2.Month, T2.Day, T2.Consumption FROM transactions_1k AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Year = '2012' AND T1.Month = '08' AND T1.Day = '24' AND T1.Price = 124.05 AND T2.Year = '2012' AND T2.Month = '01'"
+  },
+  {
+    "train_idx": 1312,
+    "db_id": "student_club",
+    "question": "What's Angela Sanders's major?",
+    "query": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Angela' AND T1.last_name = 'Sanders'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": {"full_name": ["first_name", "last_name"]},
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.full_name = 'Angela Sanders'"
+  },
+  {
+    "train_idx": 1314,
+    "db_id": "student_club",
+    "question": "Please list the full names of the students in the Student_Club that come from the Art and Design Department.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.department = 'Art and Design Department'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.department = 'Art and Design Department'"
+  },
+  {
+    "train_idx": 1320,
+    "db_id": "student_club",
+    "question": "Please list the event names of all the events attended by Maya Mclean.",
+    "query": "SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.first_name = 'Maya' AND T3.last_name = 'Mclean'",
+    "relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.full_name = 'Maya Mclean'"
+  },
+  {
+    "train_idx": 1321,
+    "db_id": "student_club",
+    "question": "How many events of the Student_Club did Sacha Harrison attend in 2019?",
+    "query": "SELECT COUNT(T1.event_id) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.first_name = 'Sacha' AND T3.last_name = 'Harrison' AND SUBSTR(T1.event_date, 1, 4) = '2019'",
+    "relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT COUNT(T1.event_id) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.full_name = 'Sacha Harrison' AND SUBSTR(T1.event_date, 1, 4) = '2019'"
+  },
+  {
+    "train_idx": 1327,
+    "db_id": "student_club",
+    "question": "List the full name of all the members of the Student_Club who attended the \"Laugh Out Loud\" event.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T3.event_name = 'Laugh Out Loud'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T3.event_name = 'Laugh Out Loud'"
+  },
+  {
+    "train_idx": 1329,
+    "db_id": "student_club",
+    "question": "What county did Sherri Ramsey grew up?",
+    "query": "SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Sherri' AND T1.last_name = 'Ramsey'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.full_name = 'Sherri Ramsey'"
+  },
+  {
+    "train_idx": 1330,
+    "db_id": "student_club",
+    "question": "What college offers the major that Tyler Hewitt took?",
+    "query": "SELECT T2.college FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Tyler' AND T1.last_name = 'Hewitt'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.college FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.full_name = 'Tyler Hewitt'"
+  },
+  {
+    "train_idx": 1334,
+    "db_id": "student_club",
+    "question": "List the full name of the Student_Club members that grew up in Illinois state.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T2.state = 'Illinois'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T2.state = 'Illinois'"
+  },
+  {
+    "train_idx": 1339,
+    "db_id": "student_club",
+    "question": "Calculate the total average cost that Elijah Allen spent in the events on September and October.",
+    "query": "SELECT AVG(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.last_name = 'Allen' AND T1.first_name = 'Elijah' AND (SUBSTR(T2.expense_date, 6, 2) = '09' OR SUBSTR(T2.expense_date, 6, 2) = '10')",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT AVG(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.full_name = 'Elijah Allen' AND (SUBSTR(T2.expense_date, 6, 2) = '09' OR SUBSTR(T2.expense_date, 6, 2) = '10')"
+  },
+  {
+    "train_idx": 1346,
+    "db_id": "student_club",
+    "question": "Tell the phone number of \"Carlo Jacobs\".",
+    "query": "SELECT phone FROM member WHERE first_name = 'Carlo' AND last_name = 'Jacobs'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT phone FROM member WHERE full_name = 'Carlo Jacobs'"
+  },
+  {
+    "train_idx": 1347,
+    "db_id": "student_club",
+    "question": "Tell the hometown county for \"Adela O'Gallagher\".",
+    "query": "SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Adela' AND T1.last_name = 'O''Gallagher'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.full_name = 'Adela O'Gallagher'"
+  },
+  {
+    "train_idx": 1351,
+    "db_id": "student_club",
+    "question": "What was Brent Thomason's major?",
+    "query": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Brent' AND T1.last_name = 'Thomason'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.full_name = 'Brent Thomason'"
+  },
+  {
+    "train_idx": 1353,
+    "db_id": "student_club",
+    "question": "What's Christof Nielson's zip code type?",
+    "query": "SELECT T2.type FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Christof' AND T1.last_name = 'Nielson'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.type FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.full_name = 'Christof Nielson'"
+  },
+  {
+    "train_idx": 1355,
+    "db_id": "student_club",
+    "question": "Where is the hometown state for \"Sacha Harrison\"?",
+    "query": "SELECT T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Sacha' AND T1.last_name = 'Harrison'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.full_name = 'Sacha Harrison'"
+  },
+  {
+    "train_idx": 1357,
+    "db_id": "student_club",
+    "question": "State the date Connor Hilton paid his/her dues.",
+    "query": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Connor' AND T1.last_name = 'Hilton' AND T2.source = 'Dues'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.full_name = 'Connor Hilton' AND T2.source = 'Dues'"
+  },
+  {
+    "train_idx": 1358,
+    "db_id": "student_club",
+    "question": "Who was the first one paid his/her dues? Tell the full name.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T2.source = 'Dues' ORDER BY T2.date_received LIMIT 1",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T2.source = 'Dues' ORDER BY T2.date_received LIMIT 1"
+  },
+  {
+    "train_idx": 1364,
+    "db_id": "student_club",
+    "question": "Where is Amy Firth's hometown?",
+    "query": "SELECT T2.city, T2.county, T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Amy' AND T1.last_name = 'Firth'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.city, T2.county, T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.full_name = 'Amy Firth'"
+  },
+  {
+    "train_idx": 1372,
+    "db_id": "student_club",
+    "question": "When did the member, Casey Mason, received the income?",
+    "query": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Casey' AND T1.last_name = 'Mason'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.full_name = 'Casey Mason'"
+  },
+  {
+    "train_idx": 1375,
+    "db_id": "student_club",
+    "question": "List all the members of the \"School of Applied Sciences, Technology and Education\" department.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.department = 'School of Applied Sciences, Technology and Education'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.department = 'School of Applied Sciences, Technology and Education'"
+  },
+  {
+    "train_idx": 1381,
+    "db_id": "student_club",
+    "question": "List the name of students that have attended more than 7 events.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member GROUP BY T2.link_to_member HAVING COUNT(T2.link_to_event) > 7",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": "",
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member GROUP BY T2.link_to_member HAVING COUNT(T2.link_to_event) > 7"
+  },
+  {
+    "train_idx": 1382,
+    "db_id": "student_club",
+    "question": "Among the students majored in interior design, who have attended the Community Theater event?",
+    "query": "SELECT T2.first_name, T2.last_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member INNER JOIN event AS T4 ON T3.link_to_event = T4.event_id WHERE T4.event_name = 'Community Theater' AND T1.major_name = 'Interior Design'",
+    "relevant_table": {
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.full_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member INNER JOIN event AS T4 ON T3.link_to_event = T4.event_id WHERE T4.event_name = 'Community Theater' AND T1.major_name = 'Interior Design'"
+  },
+  {
+    "train_idx": 1383,
+    "db_id": "student_club",
+    "question": "State the name of students from Georgetown, South Carolina.",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T2.city = 'Georgetown' AND T2.state = 'South Carolina'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T2.city = 'Georgetown' AND T2.state = 'South Carolina'"
+  },
+  {
+    "train_idx": 1384,
+    "db_id": "student_club",
+    "question": "How many income generated by Grant Gilmour?",
+    "query": "SELECT T2.amount FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Grant' AND T1.last_name = 'Gilmour'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": "",
+    "new_gold_sql": "SELECT T2.amount FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.full_name = 'Grant Gilmour'"
+  },
+  {
+    "train_idx": 1385,
+    "db_id": "student_club",
+    "question": "Which student was able to generate income more than $40?",
+    "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T2.amount > 40",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": "",
+    "new_gold_sql": "SELECT T1.full_name FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T2.amount > 40"
+  },
+  {
+    "train_idx": 1387,
+    "db_id": "student_club",
+    "question": "Which student has been entrusted to manage the budget for the Yearly Kickoff?",
+    "query": "SELECT T4.first_name, T4.last_name FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget INNER JOIN member AS T4 ON T3.link_to_member = T4.member_id WHERE T1.event_name = 'Yearly Kickoff'",
+    "relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T4.full_name FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget INNER JOIN member AS T4 ON T3.link_to_member = T4.member_id WHERE T1.event_name = 'Yearly Kickoff'"
+  },
+  {
+    "train_idx": 1388,
+    "db_id": "student_club",
+    "question": "Which students manage to generate the highest income. State his/her full name along with the income source.",
+    "query": "SELECT T1.first_name, T1.last_name, T2.source FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.first_name, T1.last_name, T2.source ORDER BY SUM(T2.amount) DESC LIMIT 1",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name, T2.source FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.full_name, T2.source ORDER BY SUM(T2.amount) DESC LIMIT 1"
+  },
+  {
+    "train_idx": 1393,
+    "db_id": "student_club",
+    "question": "Provide the full name and email address of the Student_Club's Secretary.",
+    "query": "SELECT first_name, last_name, email FROM member WHERE position = 'Secretary'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT full_name, email FROM member WHERE position = 'Secretary'"
+  },
+  {
+    "train_idx": 1396,
+    "db_id": "student_club",
+    "question": "Provide the number of events attended by Luisa Guidi. What is her major?",
+    "query": "SELECT COUNT(T3.link_to_event), T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member WHERE T2.first_name = 'Luisa' AND T2.last_name = 'Guidi'",
+    "relevant_table": {
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT COUNT(T3.link_to_event), T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member WHERE T2.full_name = 'Luisa Guidi'"
+  },
+  {
+    "train_idx": 1399,
+    "db_id": "student_club",
+    "question": "Did Maya Mclean attend the 'Women's Soccer' event?",
+    "query": "SELECT CASE WHEN T3.event_name = 'Women''s Soccer' THEN 'YES' END AS result FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T1.first_name = 'Maya' AND T1.last_name = 'Mclean'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      }
+    },
+    "new_gold_sql": "SELECT CASE WHEN T3.event_name = 'Women''s Soccer' THEN 'YES' END AS result FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T1.full_name = 'Maya Mclean'"
+  },
+  {
+    "train_idx": 1410,
+    "db_id": "student_club",
+    "question": "List out the full name and total cost that member id \"rec4BLdZHS2Blfp4v\" incurred?",
+    "query": "SELECT T1.first_name, T1.last_name, SUM(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.member_id = 'rec4BLdZHS2Blfp4v'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table":  {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name, SUM(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.member_id = 'rec4BLdZHS2Blfp4v'"
+  },
+  {
+    "train_idx": 1411,
+    "db_id": "student_club",
+    "question": "State what kind of expenses that Sacha Harrison incurred?",
+    "query": "SELECT T2.expense_description FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Sacha' AND T1.last_name = 'Harrison'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table":  {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.expense_description FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.full_name = 'Sacha Harrison'"
+  },
+  {
+    "train_idx": 1414,
+    "db_id": "student_club",
+    "question": "State the name of major that Phillip Cullen has joined.",
+    "query": "SELECT T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T2.first_name = 'Phillip' AND T2.last_name = 'Cullen'",
+    "relevant_table": {
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T2.full_name = 'Phillip Cullen'"
+  },
+  {
+    "train_idx": 1445,
+    "db_id": "student_club",
+    "question": "Find the full name of members whose t-shirt size is extra large.",
+    "query": "SELECT first_name, last_name FROM member WHERE t_shirt_size = 'X-Large'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT full_name FROM member WHERE t_shirt_size = 'X-Large'"
+  },
+  {
+    "train_idx": 1449,
+    "db_id": "student_club",
+    "question": "What is the name and major of members who had to spend more than a hundred dollars on an expense?",
+    "query": "SELECT DISTINCT T1.first_name, T1.last_name, T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major INNER JOIN expense AS T3 ON T1.member_id = T3.link_to_member WHERE T3.cost > 100",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      },
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T1.full_name, T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major INNER JOIN expense AS T3 ON T1.member_id = T3.link_to_member WHERE T3.cost > 100"
+  },
+  {
+    "train_idx": 1456,
+    "db_id": "student_club",
+    "question": "List the full name of the top five members who spend the most money in the descending order of spending.",
+    "query": "SELECT T3.first_name, T3.last_name FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id ORDER BY T2.spent DESC LIMIT 5",
+    "relevant_table": {
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T3.full_name FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id ORDER BY T2.spent DESC LIMIT 5"
+  },
+  {
+    "train_idx": 1457,
+    "db_id": "student_club",
+    "question": "Give the full name and contact number of members who had to spend more than average on each expense.",
+    "query": "SELECT DISTINCT T3.first_name, T3.last_name, T3.phone FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T3.member_id = T1.link_to_member WHERE T1.cost > ( SELECT AVG(T1.cost) FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T3.member_id = T1.link_to_member )",
+    "relevant_table": {
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "budget": {
+        "ddl": "create table budget( budget_id text primary key, category text, spent real, remaining real, amount integer, event_status text, foreign key(link_to_event) references event(event_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T3.full_name, T3.phone FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T3.member_id = T1.link_to_member WHERE T1.cost > ( SELECT AVG(T1.cost) FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T3.member_id = T1.link_to_member )"
+  },
+  {
+    "train_idx": 1459,
+    "db_id": "student_club",
+    "question": "What is the major of Garrett Gerke and which department does it belong to?",
+    "query": "SELECT T2.major_name, T2.department FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.first_name = 'Garrett' AND T1.last_name = 'Gerke'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.major_name, T2.department FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.full_name = 'Garrett Gerke'"
+  },
+  {
+    "train_idx": 1460,
+    "db_id": "student_club",
+    "question": "Write the full name of the member who spent money for water, veggie tray and supplies and include the cost of it.",
+    "query": "SELECT T2.first_name, T2.last_name, T1.cost FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id WHERE T1.expense_description = 'Water, Veggie tray, supplies'",
+    "relevant_table": {
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "expense": {
+        "ddl": "create table expense( expense_id text primary key, expense_description text, expense_date text, cost real, approved text, foreign key(link_to_member) references member(member_id) text, foreign key(link_to_budget) references budget(budget_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.full_name, T1.cost FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id WHERE T1.expense_description = 'Water, Veggie tray, supplies'"
+  },
+  {
+    "train_idx": 1464,
+    "db_id": "student_club",
+    "question": "Write the full names of students who received funds on the date of 9/9/2019 and include the amount received.",
+    "query": "SELECT DISTINCT T3.first_name, T3.last_name, T4.amount FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T3.member_id = T2.link_to_member INNER JOIN income AS T4 ON T4.link_to_member = T3.member_id WHERE T4.date_received = '2019-09-09'",
+    "relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "event": {
+        "ddl": "create table event( event_id text primary key, event_name text, event_date text, type text, notes text, location text, status text)"
+      },
+      "attendance": {
+        "ddl": "create table attendance( foreign key(link_to_event) references event(event_id) text, foreign key(link_to_member) references member(member_id) text)"
+      },
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "income": {
+        "ddl": "create table income( income_id text primary key, date_received text, amount integer, source text, notes text, foreign key(link_to_member) references member(member_id) text)"
+      }
+    },
+    "new_gold_sql": "SELECT DISTINCT T3.full_name, T4.amount FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T3.member_id = T2.link_to_member INNER JOIN income AS T4 ON T4.link_to_member = T3.member_id WHERE T4.date_received = '2019-09-09'"
+  },
+  {
+    "train_idx": 1466,
+    "db_id": "student_club",
+    "question": "Write the full name of the club member with the position of 'Secretary' and list which college the club member belongs to.",
+    "query": "SELECT T1.first_name, T1.last_name, college FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.position = 'Secretary'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "major": {
+        "ddl": "create table major( major_id text primary key, major_name text, department text, college text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name, college FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.position = 'Secretary'"
+  },
+  {
+    "train_idx": 1468,
+    "db_id": "student_club",
+    "question": "Where is the hometown of Garrett Gerke?",
+    "query": "SELECT T2.city FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T1.first_name = 'Garrett' AND T1.last_name = 'Gerke'",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T2.city FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T1.full_name = 'Garrett Gerke'"
+  },
+  {
+    "train_idx": 1469,
+    "db_id": "student_club",
+    "question": "Which student has the hometown of Lincolnton, North Carolina with the zip code of 28092? List their full name and position.",
+    "query": "SELECT T1.first_name, T1.last_name, T1.position FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T2.city = 'Lincolnton' AND T2.state = 'North Carolina' AND T2.zip_code = 28092",
+    "relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, first_name text, last_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "split_or_merge": "merge",
+    "column_changes": "",
+    "new_relevant_table": {
+      "member": {
+        "ddl": "create table member( member_id text primary key, full_name text, email text, position text, t_shirt_size text, phone text, foreign key(zip) references zip_code(zip_code) integer, foreign key(link_to_major) references major(major_id) text)"
+      },
+      "zip_code": {
+        "ddl": "create table zip_code( zip_code integer primary key, type text, city text, county text, state text, short_state text)"
+      }
+    },
+    "new_gold_sql": "SELECT T1.full_name, T1.position FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T2.city = 'Lincolnton' AND T2.state = 'North Carolina' AND T2.zip_code = 28092"
+  }
+]
